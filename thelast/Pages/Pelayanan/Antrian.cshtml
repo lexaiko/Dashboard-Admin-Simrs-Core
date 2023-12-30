@@ -1,0 +1,91 @@
+﻿@page
+@model thelast.Pages.Pelayanan.AntrianModel
+@{
+}
+<div class="mt-3">
+    @if (Model.errorMessage.Length > 0)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>@Model.errorMessage</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+    }
+    <h3>List Pasien IGD</h3>
+	<table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID Kunjungan</th>
+                <th>ID Pasien</th>
+                <th>Nama Pasien</th>
+                <th>Tgl Kunjungan</th>
+                <th>Dokter</th>
+                <th>Kunjungan</th>
+                <th>Bayar</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.listPasien)
+        {
+            <tr>
+                <td> @item.id  </td>
+                <td> @item.id_pasien</td>
+                <td> @item.nama_pasien</td>
+                <td> @Convert.ToDateTime(item.tgl_datang).ToString("dd/MM/yyyy")</td>
+                <td> @item.nama_dokter</td>
+                    <td>
+                        @if (item.status_bayar)
+                        {
+                            <text>Done</text>
+                        }
+                        else
+                        {
+                            <text>Pulang</text>
+                        }
+                    </td>
+                    <td>
+                        @if (item.status_bayar)
+                        {
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal_@item.id_pasien">
+                                Pulang
+                            </button>
+                           
+                           
+                        }
+                        else
+                        {
+                            <button class="btn btn-danger" disabled>Pulang</button>
+                            
+                        }
+                    </td>
+            </tr>
+                <!-- Modal untuk setiap pasien -->
+                <div class="modal fade" id="exampleModal_@item.id_pasien" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Konten Modal -->
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Pemulangan</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    <h5>Konfirmasi Pemulangan</h5>
+                                    <div class="row mb-3">
+                                        <input type="hidden" class="hidden" name="id" value="@item.id" />
+                                        <input type="hidden" name="id_pasien" value="@item.id_pasien" />
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </form>
+                                <!-- ... -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,46 @@
+﻿@page
+@model thelast.Pages.IndexModel
+@{
+}
+
+<br>
+<h3>List of Pasien</h3>
+<table id="example" class="table table-striped mt-2" style="width:100%">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>NIK</th>
+			<th>Jenis Kelamin</th>
+			<th>Tgl Lahir</th>
+			<th>Alamat</th>
+			<th>Status Kunjungan</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var item in Model.listClients)
+		{
+			<tr>
+
+				<td> <a class='btn hidden' href="/Pendaftaran?id=@item.id"> @item.id </a></td>
+				<td><a class='btn hidden' href="/Pendaftaran?id=@item.id"> @item.nama </a></td>
+				<td><a class='btn hidden' href="/Pendaftaran?id=@item.id"> @item.nik </a></td>
+				<td><a class='btn hidden' href="/Pendaftaran?id=@item.id"> @item.jenis_kelamin </a> </td>
+				<td><a class='btn hidden' href="/Pendaftaran?id=@item.id"> @Convert.ToDateTime(item.tgl_lahir).ToString("dd/MM/yyyy")</a></td>
+				<td><a class='btn hidden' href="/Pendaftaran?id=@item.id"> @item.address </a></td>
+				<td><a class='btn hidden' href="/Pendaftaran?id=@item.id">
+				
+							@if (item.status)
+							{
+						<a class='btn btn-warning' href="/Pendaftaran?id=@item.id">Kunjungan</a>
+							}
+							else
+							{
+						<a class='btn btn-primary' href="/Pendaftaran?id=@item.id">Tidak Kunjungan</a>
+							}
+				</a></td>
+				</tr>
+		}
+	</tbody>
+</table>

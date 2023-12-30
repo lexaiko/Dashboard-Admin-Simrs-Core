@@ -1,0 +1,87 @@
+﻿@page
+@model thelast.Pages.PendaftaranModel
+@{
+}
+
+<br>
+<h3>Pendaftaran Pasien IGD</h3>
+@if (Model.errorMessage.Length > 0)
+{
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<strong>@Model.errorMessage</strong>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+	</div>
+}
+
+<form method="post">
+
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">ID</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" name="id_pasien" asp-for="@Model.clientInfo.id" readonly/>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">Nama</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" name="nama" asp-for="@Model.clientInfo.nama" readonly/>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">Tgl Kunjungan</label>
+		<div class="col-sm-6">
+			<input type="date" class="form-control" name="tgl_datang" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">Pilih Dokter</label>
+		<div class="col-sm-6">
+			<select class="form-control" name="id_dokter">
+				@foreach (var dokter in Model.ListIDDokter)
+				{
+					<option value="@dokter.id" data-biaya="@dokter.biaya">@dokter.nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Biaya: Rp. @dokter.biaya</option>
+				}
+			</select>
+		</div>
+		</div>
+	<input type="hidden" id="biaya_terpilih" name="biaya" value="">
+	
+
+
+	@if (Model.successMessage.Length > 0)
+	{
+		<div class="row mb-3">
+			<div class="col-sm-9">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					<strong>@Model.successMessage</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+				</div>
+			</div>
+		</div>
+	}
+	<div class="row mb-3">
+		<div class="offset-sm-3 col-sm-3 d-grid">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+		<div class="col-sm-3 d-grid">
+			<a class="btn btn-outline-primary" href="/" role="button">Cancel</a>
+		</div>
+
+
+	</div>
+</form>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const selectDokter = document.querySelector('select[name="id_dokter"]');
+		const hiddenBiaya = document.getElementById('biaya_terpilih');
+
+		selectDokter.addEventListener('change', function (event) {
+			const selectedOption = event.target.options[event.target.selectedIndex];
+			const selectedBiaya = selectedOption.getAttribute('data-biaya');
+
+			hiddenBiaya.value = selectedBiaya;
+		});
+	});
+</script>
+
+

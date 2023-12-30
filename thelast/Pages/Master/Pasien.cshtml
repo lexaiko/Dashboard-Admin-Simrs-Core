@@ -1,0 +1,35 @@
+﻿@page
+@model thelast.Pages.Master.PasienModel
+@{
+}
+<br>
+<h3>List of Pasien</h3>
+<table id="example" class="table table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>NIK</th>
+			<th>Jenis Kelamin</th>
+			<th>Tgl Lahir</th>
+			<th>Alamat</th>
+			<th>Edit</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.listClients)
+		{
+			<tr>
+				<td> @item.id</td>
+				<td> @item.nama</td>
+				<td> @item.nik</td>
+				<td> @item.jenis_kelamin</td>
+				<td>@Convert.ToDateTime(item.tgl_lahir).ToString("dd/MM/yyyy")</td>
+				<td> @item.address</td>
+				<td>
+					<a class='btn btn-warning btn-sm' href="/Edit?id=@item.id">Edit</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

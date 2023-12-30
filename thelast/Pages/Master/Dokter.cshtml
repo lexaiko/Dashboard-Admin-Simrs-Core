@@ -1,0 +1,40 @@
+﻿@page
+@model thelast.Pages.Master.DokterModel
+@{
+}
+<br>
+<h3>List of Dokter</h3>
+<a class='btn btn-primary btn-sm mb-3' href="/Master/Create">
+	New Dokter
+</a>
+<table id="example" class="table table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nama</th>
+			<th>NIK</th>
+			<th>Spesialis</th>
+			<th>Jenis Kelamin</th>
+			<th>Edit</th>
+			<th>Hapus</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.listDokter)
+		{
+			<tr>
+				<td> @item.id</td>
+				<td> @item.nama</td>
+				<td> @item.nik</td>
+				<td> @item.spesialis</td>
+				<td>@item.jenis_kelamin</td>
+				<td>
+					<a class='btn btn-primary btn-sm' href="/Master/Edit?id=@item.id">Edit</a>
+				</td>
+				<td>
+					<a class='btn btn-danger btn-sm' href="/Master/Delete?id=@item.id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
